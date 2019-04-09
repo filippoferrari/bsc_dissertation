@@ -1,0 +1,85 @@
+\documentclass[12pt]{report}
+% English hyphenation
+\usepackage[british]{babel}
+% Links
+\usepackage{hyperref}
+% Images
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\usepackage[capitalise]{cleveref}
+
+\crefname{appsec}{Appendix}{Appendices}
+
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[a4paper, headheight=15pt]{geometry}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\rightmark}
+\fancyfoot{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+\renewcommand{\sectionmark}[1]{ \markright{#1}{} }
+
+% Appendix
+\usepackage[toc,page]{appendix}
+% Change name of toc
+\renewcommand*\contentsname{Table of Contents}
+
+\usepackage[style=authoryear,sorting=none]{biblatex}
+\addbibresource{references.bib}
+
+\title{Shape Tracking Spiking Neural Network}
+\author{Filippo Ferrari}
+\date{April 2019}
+
+
+\begin{document}
+
+\input{introductions/titlepage.tex}
+
+\input{introductions/abstract.tex}
+
+\input{introductions/acknowledgements.tex}
+
+\tableofcontents
+
+\listoffigures
+
+\listoftables
+
+\chapter{Introduction}
+\input{introductions/introduction.tex}
+
+\chapter{Chapter Two Title}
+\input{chapters/chapter02}
+
+\chapter{Chapter Three Title}
+\input{chapters/chapter03}
+
+\chapter{Chapter Four Title}
+\input{chapters/chapter04}
+
+\chapter{Conclusion}
+\input{chapters/conclusion}
+
+\appendix
+\chapter{Appendix Title}
+\input{chapters/appendix}
+
+%\setcitestyle{numbers}
+%\bibliography{bibliography}
+
+\printbibliography
+
+\end{document}
