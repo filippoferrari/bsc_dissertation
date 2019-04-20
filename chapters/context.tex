@@ -2,6 +2,8 @@ This project investigates whether biologically inspired spiking neural network c
 
 In this chapter a brief introduction on the functioning of biological neurons and the technologies used in order to simulate them will be presented. A quick discussion on the motivation and previous work in the area will also provided. 
 
+All of the following tools and technologies had been selected in order to develop a project with as many similarities as possible to the functioning of a biological brain. 
+
 \section{Neuron}
 Neurons are highly specialised cells found in the nervous system designed to generate and transmit electrical signals to other cells. Many different kinds of neurons exist \cite{Llinas:2008}, each with different morphology, but a typical neuron can be divided in three parts shown in \cref{fig:neuron_morphology} \textbf{A}:
 \begin{itemize}
@@ -23,6 +25,11 @@ A neuron spikes when the current input carried by the dendrites exceeds a certai
 Several mathematical models are available in order to simulate neurons, the one used in this project is a leaky integrate-and-fire (LIF) neuron model. 
 
 % TODO insert maths details of LIF model
+
+\subsection{Spiking Neural Networks}
+Spiking neural networks are artificial neural networks which are closer to biology than the one commonly used nowadays for machine learning tasks. In spiking neural networks the concept of time is introduced and the communication between neurons relies exclusively on discrete spikes, the ones described in the previous section, instead of continuous values. 
+
+The field of spiking neural networks is still in its infancy and lacks an effective supervised method for training, the equivalent of backpropagation for artificial neural network.
 
 
 \section{SpiNNaker}
@@ -52,8 +59,9 @@ SpiNNaker is available at different scale, from a 4 chips board shown in \cref{f
 
 For this project, a 4 chips board has been used. Each chip, \cref{fig:spinnaker_chip} includes 18 ARM9 cores and \SI{128}{\mega\byte} of SDRAM. The board is connected to a host machine through an Ethernet cable and it is powered through a \SI{5}{\volt} \SI{1}{\ampere} USB cable.
 
-\section{Dynamic Vision Sensor}
 
+\section{Dynamic Vision Sensor}
+Due to the biologically inspired nature of this project and of the technologies involved, it made sense to use a Dynamic Vision Sensor as the input to the spiking neural network. A Dynamic Vision Sensor, also known as digital retina, is a device that records relative intensity changes for each individual pixel in continuous time.
 
 \section{Motivation}
 
