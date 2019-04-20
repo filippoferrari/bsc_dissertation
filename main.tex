@@ -2,12 +2,12 @@
 % English hyphenation
 \usepackage[british]{babel}
 % Links
-\usepackage{hyperref}
+\usepackage[breaklinks=true]{hyperref}
 % Images
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
 
-\usepackage[capitalise]{cleveref}
+\usepackage[noabbrev]{cleveref}
 
 \crefname{appsec}{Appendix}{Appendices}
 
@@ -18,6 +18,7 @@
 \usepackage{subcaption}
 \usepackage[a4paper, headheight=15pt]{geometry}
 
+\usepackage[load-configurations=abbreviations, binary-units=true]{siunitx}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -31,6 +32,8 @@
 \renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
 \renewcommand{\sectionmark}[1]{ \markright{#1}{} }
 
+
+\newcommand{\imagesource}[1] {\caption*{\begin{footnotesize} Source: \url{#1} \end{footnotesize}}}
 % Appendix
 \usepackage[toc,page]{appendix}
 % Change name of toc
@@ -59,7 +62,7 @@
 \listoftables
 
 \chapter{Context}
-\input{chapters/introduction.tex}
+\input{chapters/context.tex}
 
 \chapter{Conclusion}
 \input{chapters/conclusion}
