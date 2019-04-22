@@ -1,0 +1,8 @@
+\section{Code testing}
+The codebase can be divided in three major components: the sPyNNaker code, the DVS emulator and the network written for the project. 
+
+The sPyNNaker code is already heavily tested. The DVS emulator did not included any unit tests but none were added as part of this project due to time constraints. 
+
+Unit tests had been included in the code written for this project. In particular, all the code that defines the connections between the DVS output and the receptive fields and between the receptive fields and the shapes detectors has unit tests. 
+
+A continuous integration test had been set up using the free tier of \href{http://travis-ci.com}{travis-ci.com} in order to run all the tests at every git push. 

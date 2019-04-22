@@ -32,8 +32,9 @@
 \renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
 \renewcommand{\sectionmark}[1]{ \markright{#1}{} }
 
-
+% Source images
 \newcommand{\imagesource}[1] {\caption*{\begin{footnotesize} Source: \url{#1} \end{footnotesize}}}
+
 % Appendix
 \usepackage[toc,page]{appendix}
 % Change name of toc
@@ -59,21 +60,31 @@
 
 \listoffigures
 
-\listoftables
+%\listoftables
 
 \chapter{Context}
 \input{chapters/context.tex}
+\newpage
+
+\chapter{Development}
+\input{chapters/development.tex}
+\newpage
+
+\chapter{Evaluation}
+\input{chapters/evaluation.tex}
+\newpage
 
 \chapter{Conclusion}
 \input{chapters/conclusion}
+\newpage
 
-\appendix
-\chapter{Appendix Title}
-\input{chapters/appendix}
+% \appendix
+% \chapter{Appendix Title}
+% \input{chapters/appendix}
 
 %\setcitestyle{numbers}
 %\bibliography{bibliography}
 
-\printbibliography
+\printbibliography[heading=bibintoc]
 
 \end{document}
