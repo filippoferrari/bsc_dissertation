@@ -17,7 +17,7 @@ The network developed for this project draws its inspiration from the HMAX model
 
 \begin{figure}[ht]
 \centering
-\includegraphics[scale=0.4]{images/development/hmax.png}
+\includegraphics[scale=0.5]{images/development/hmax.png}
 \caption[HMAX Model]{The HMAX model by Riesenhuber and Poggio \cite{Riesenhuber1999}.}
 \label{fig:hmax}
 \end{figure}
@@ -86,7 +86,26 @@ The network in its current form recognises only two shapes: a square and a diamo
 
 The ``square detector'' combines horizontal and vertical edges in order to detect squares of size $5 \times 5$. On the other hand, the ``diamond detector'' combines the left and right diagonal edges to detect diamonds of size $5 \times 5$. 
 
+The connections between the \textsc{S1} cells populations and the shapes detectors are all excitatory. In this way, the neuron which spikes in the shape detector population is at the centre of the location of the shape in the visual plane. 
+
+This setup has one obvious disadvantage, it does not account for scale variance. In order to account for it, connections to the surrounding cells are added. An example of this, for the vertical edges of the square detector, can be seen in \cref{fig:shapes_connections}. The other edges behave in a similar way. With this technique, shapes of size 3, 5, 7 and 9 can be detected. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.75\textwidth]{images/development/shapes_connections.png}
+\caption[Vertical Edges of the Square Detector]{For this example, a $12 \times 12$ input area is used, where the numbers represents the neuron ids. Neuron 65 in the square population has connections to all the neurons highlighted in the respective edge population. The red connections have the strongest connection weight and the yellow one the weakest.}
+\label{fig:shapes_connections}
+\end{figure}
+
+Due to the increased number of connections, false positives can occur. In order to reduce them a biological mechanism called lateral inhibition is used. It is represented by the purple arrows in \cref{fig:network}. With lateral inhibition, an excited neuron will send a inhibitory signal to all the surrounding neuron. Thanks to it, the first neuron that spikes in the shape population, stops the other from spiking.
+
 \subsection{Shape Recognition}
+At this point, the spike trains from the shape detector populations can be used to locate and track the shape across time. An example of it is shown in \cref{fig:shape_detectors}. It can be seen that even with lateral inhibition, multiple neurons spike at the same time. In that case the marker is selected taking the median of the neuron ids. 
 
-
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{images/development/shape_detectors.png}
+\caption[Shapes Detector with Square and Diamond]{On the left the spike trains for the square (top) and diamond (bottom) populations. On the right a screenshot of the video used as an input at the time highlighted in the spike train, with a yellow marker which tracks the position of the diamond and a red marker for the square.}
+\label{fig:shape_detectors}
+\end{figure}
 

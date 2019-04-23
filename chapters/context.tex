@@ -1,6 +1,6 @@
 This project investigates whether biologically inspired spiking neural network can be used to recognise and track simple shapes moving in a video stream in real time. The network developed for this project currently recognised squares and diamonds in synthetic videos. 
 
-In this chapter a brief introduction on the functioning of biological neurons and the technologies used in order to simulate them will be presented. A quick discussion on the motivation and previous work in the area will also be provided. 
+In this chapter a brief introduction on the functioning of biological neurons and the technologies used in order to simulate them will be presented. A quick discussion on previous work in the area will also be provided. 
 
 All of the following tools and technologies had been selected in order to develop a project with as many similarities as possible to the functioning of a biological brain. 
 
@@ -21,7 +21,7 @@ The axon of a \textit{presynaptic cell} makes contact with the dendrite of a \te
 \label{fig:neuron_morphology}
 \end{figure}
 
-A neuron spikes when the current input carried by the dendrites exceeds a certain threshold. The biochemical details of this process are not relevant for this project and the variety in electrophysiological properties of neurons \cite{Llinas:2008} leads to necessary simplification in order to simulate them. The signals emitted by neurons are called action potentials or spikes, and an approximate form is shown in the circled area of  \cref{fig:neuron_morphology}. A key property of action potential is that the form does not carry any information, information is actually carried by the number of action potentials and their timings \cite{Gerstner:2014}. After each spike the neuron enters a state called refractory period, in which it is impossible for it to spike again.  
+A neuron spikes when the current input carried by the dendrites exceeds a certain threshold. The biochemical details of this process are not relevant for this project and the variety in electrophysiological properties of neurons \cite{Llinas:2008} leads to necessary simplification in order to simulate them. The signals emitted by neurons are called action potentials or spikes, and an approximate form is shown in the circled area of  \cref{fig:neuron_morphology}. A key property of action potential is that the form does not carry any information, information is actually carried by the number of action potentials and their timings \cite{Gerstner:2014}. After each spike the neuron enters a state called refractory period, in which it is impossible for it to spike again.
 
 Several mathematical models are available in order to simulate neurons, the one used in this project is a leaky integrate-and-fire (LIF) neuron model. 
 
@@ -107,10 +107,10 @@ The DVS emulator converts a frames coming from a conventional camera into a AER 
 The emulator provides a lot of flexibility: the input can either be a prerecorded video or it can be used live with a webcam, and being a software artefact its behaviour can be easily changed and the results saved for reproducibility. 
 
 
-\section{Motivation}
-Now that an overview of the theory and technology used for this project, it makes sense to discuss the motivation behind. 
+% \section{Motivation}
+% Now that an overview of the theory and technology used for this project, it makes sense to discuss the motivation behind. 
 
-% TODO write motivation
+% % TODO write motivation
 
 
 \section{Previous Work}

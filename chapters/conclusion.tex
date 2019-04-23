@@ -1,1 +1,35 @@
-These are the conclusions
+\section{New Knowledge}
+The project required learning and understanding a lot of material which is not part of my degree. In particular, learning enough in order to understand the computational neuroscience literature required a great deal of effort and time. The lack of literature related to this specific task for spiking neural network was an other obstacle which posed a great chance of failure. 
+
+Luckily, Python was already known and only the PyNN API required to be learnt. 
+
+\section{Project Development}
+The project development run for 20 weeks, 12 in Semester 1 and 8 in Semester 2. The project presentation was planned to be between week 6 and 8 of Semester 2, so week 6 had been taken as the deadline for the actual development.  
+
+\begin{table}[]
+\centering
+\begin{tabular}{l|ll}
+Milestones                    & Planned Weeks & Actual Weeks \\ \hline
+Research                      & 1-4           & 1-6          \\
+SpiNNaker Setup               & 1-4           & 1-3          \\
+DVS Emulator Setup            & 5-8           & 4-8          \\
+Receptive Fields Working      & 8-11          & 8-12         \\
+Shapes using Synthetic Videos & 12-15         & 13-16        \\
+Shapes using Webcam           & 15-18         & 16-19       
+\end{tabular}
+\caption{Milestones of the project and planned and actual weeks of development.}
+\label{table:development}
+\end{table}
+
+\Cref{table:development} shows the main milestones of the project and how the development had been planned. 
+
+A lot of time had been allocated for research and the initial setup. Retrospectively, this had been a good decision as it allowed the project to run pretty much on schedule throughout the year.
+
+The biggest problem faced during the development was caused by an undetected bug in the code which sets the connections between cells populations. Due to this bug, getting the receptive fields to work as expected took longer than expected and added an extra week of development to the original plan.
+
+\section{Reflection}
+Overall, this project had been a great learning experience spanning different fields. 
+
+Most of the planned deliverable had been achieved. In particular, the network runs in real time on a 4 chips SpiNNaker board and achieves sensible results on the synthetic video.
+
+Nevertheless, several limitations are still present. The network cannot be easily expanded in order to recognise new shapes, the connections have to be manually created for each new shape. Also, following the results shown in \cref{fig:shape_webcam_input}, the webcam input is too noisy for being useful. It is opinion of the author that in order to solve this problems, a deeper network, with populations of cells encoding higher levels of abstraction, could be used together with a learning algorithm like Spike Timing Dependent Plasticity (STDP) \cite{Song2000} in order to learn the connection weights between the cells populations. 
