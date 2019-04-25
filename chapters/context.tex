@@ -40,18 +40,11 @@ SpiNNaker is a massively-parallel multi-core computing system designed for large
 
 \begin{figure}[ht]
 \centering
-\begin{subfigure}{0.45\textwidth}
-\includegraphics[width=\textwidth]{images/context/spinnaker_board.png} 
-\caption{SpiNNaker board with 4 chips.}
-\label{fig:spinnaker_board}
-\imagesource{http://apt.cs.manchester.ac.uk/projects/SpiNNaker/hardware/index3.php}
-\end{subfigure}
-\begin{subfigure}{0.45\textwidth}
-\includegraphics[width=\textwidth]{images/context/spinnaker_chip.png}
-\caption{SpiNNaker chip.}
-\label{fig:spinnaker_chip}
-\imagesource{http://apt.cs.manchester.ac.uk/projects/SpiNNaker/SpiNNchip}
-\end{subfigure}
+\subcaptionbox{SpiNNaker board with 4 chips.\\
+\begin{footnotesize} Source: \url{http://apt.cs.manchester.ac.uk/projects/SpiNNaker/hardware/index3.php}\end{footnotesize} \label{fig:spinnaker_board}}
+  [0.45\textwidth]{\includegraphics[width=0.45\textwidth]{images/context/spinnaker_board.png}}
+\subcaptionbox{SpiNNaker chip.\\ \begin{footnotesize} Source: \url{http://apt.cs.manchester.ac.uk/projects/SpiNNaker/SpiNNchip}\end{footnotesize} \label{fig:spinnaker_chip}}
+  [0.45\textwidth]{\includegraphics[width=0.45\textwidth]{images/context/spinnaker_chip.png}}
 \caption[SpiNNaker Board and Chip]{SpiNNaker board and chip}
 \label{fig:spinnaker}
 \end{figure}
@@ -73,9 +66,11 @@ By recording only individual pixels changes, a digital retina models key propert
 \centering
 \captionsetup{width=0.75\linewidth}
 \includegraphics[scale=0.4]{images/context/dvs.jpg}
-\caption[DVS comparison to frame-based device]{An example of a Dynamic Vision Sensor stream superimposed on a image from grayscale frame-based camera.}
+\caption[DVS comparison to frame-based device]{An example of a Dynamic Vision Sensor stream superimposed on a image from grayscale frame-based camera.\\
+\begin{footnotesize}
+  Source: \url{http://rpg.ifi.uzh.ch/research_dvs.html}
+\end{footnotesize}}
 \label{fig:dvs}
-\imagesource{http://rpg.ifi.uzh.ch/research_dvs.html}
 \end{figure}
 
 Thanks to these properties, a digital retina requires low bandwidth, as it is rare that all the pixels produce a spike at the same time, has very low latency, less than \SI{1}{\milli\second}, and has a high dynamic range, higher than \SI{120}{\decibel}. On the other hand, a normal frame-based device produces a lot of redundant information since at each frame the state of all pixels is recorded, and have limited frame rates. Also, increasing the frame rate on these devices produces huge amount of data.
@@ -88,16 +83,10 @@ Due to the high cost of DVS cameras, a software emulator has been developed in t
 
 \begin{figure}[ht]
 \centering
-\begin{subfigure}{0.49\textwidth}
-\includegraphics[width=\textwidth]{images/context/dvs_comparison.png} 
-\caption{Comparison between a DVS device and the DVS emulator.}
-\label{fig:dvs_comparison}
-\end{subfigure}
-\begin{subfigure}{0.49\textwidth}
-\includegraphics[width=\textwidth]{images/context/dvs_diagram.png}
-\caption{Diagram of the DVS emulator and its component.}
-\label{fig:dvs_diagram}
-\end{subfigure}
+\subcaptionbox{Comparison between a DVS device and the DVS emulator. \label{fig:dvs_comparison}}
+  [0.47\textwidth]{\includegraphics[width=0.47\textwidth]{images/context/dvs_comparison.png}}
+\subcaptionbox{Diagram of the DVS emulator and its component \label{fig:dvs_diagram}}
+  [0.47\textwidth]{\includegraphics[width=0.47\textwidth]{images/context/dvs_diagram.png}}
 \caption[DVS Emulator]{General overview of the DVS emulator used throughout the project. Images taken from \cite{Garcia2017}.}
 \label{fig:dvs_emulator}
 \end{figure}

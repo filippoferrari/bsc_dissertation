@@ -38,18 +38,10 @@ The DVS emulator produces two separate spikes streams, one for positive changes 
 
 \begin{figure}[ht]
 \centering
-\begin{subfigure}{0.45\textwidth}
-\centering
-\includegraphics[width=0.5\textwidth]{images/development/dvs_square_lr.png} 
-\caption{Screenshot of a video of a white square moving on a black background from left to right}
-\label{fig:dvs_square_lr}
-\end{subfigure}
-\begin{subfigure}{0.45\textwidth}
-\centering
-\includegraphics[width=\textwidth]{images/development/spikes_square_lr.png}
-\caption{DVS output of the same square moving from left to right. In yellow the positive spikes and in purple the negative ones.}
-\label{fig:spikes_square_lr}
-\end{subfigure}
+\subcaptionbox{Screenshot of a video of a white square moving on a black background from left to right. \label{fig:dvs_square_lr}}
+  [0.47\textwidth]{\includegraphics[width=0.30\textwidth]{images/development/dvs_square_lr.png}}
+\subcaptionbox{DVS output of the same square moving from left to right. In yellow the positive spikes and in purple the negative ones. \label{fig:spikes_square_lr}}
+  [0.47\textwidth]{\includegraphics[width=0.4\textwidth]{images/development/spikes_square_lr.png}}
 \caption[DVS Output of a Square]{Screenshot and DVS output of a square moving from left to right on the screen.}
 \label{fig:square_lr}
 \end{figure}
