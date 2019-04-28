@@ -1,3 +1,5 @@
+In this chapter reflections on the planning and management of this project will be presented together with the challenges faced. 
+
 \section{New Knowledge}
 The project required learning and understanding a lot of material which is not part of my degree. In particular, learning enough in order to understand the computational neuroscience literature required a great deal of effort and time. The lack of literature related to this specific task for spiking neural network was another obstacle which posed a great chance of failure. 
 
@@ -27,9 +29,9 @@ A lot of time had been allocated for research and the initial setup. When devisi
 
 The biggest problem faced during the development was caused by an undetected bug in the code which sets the connections between cells populations. Due to this bug, getting the receptive fields to work as expected took longer than expected and added an extra week of development to the original plan. Other reasons causing delays were due to unreported incompatibilities in some of the libraries used during the 
 
-\section{Reflection}
+\section{Reflections}
 Overall, this project had been a great learning experience spanning different fields. 
 
-Most of the planned milestones had been achieved. In particular, the network runs in real time on a 4 chips SpiNNaker board and achieves sensible results on the synthetic video.
+Most of the planned milestones had been achieved. In particular, the network runs in real time on a 4 chips SpiNNaker board and achieves sensible results on synthetic videos.
 
 Nevertheless, several limitations are still present. The network cannot be easily expanded in order to recognise new shapes: the connections have to be manually created for each new shape. Also, following the results shown in \cref{fig:shape_webcam_input}, the webcam input is too noisy for being useful. It is opinion of the author that in order to solve this problems, a deeper network, with populations of cells encoding higher levels of abstraction, could be used together with a learning algorithm like Spike Timing Dependent Plasticity (STDP) \cite{Song2000} in order to learn the connection weights between the cells populations. 

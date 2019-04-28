@@ -76,7 +76,7 @@ By recording only individual pixels changes, a digital retina models key propert
 
 Thanks to these properties, a digital retina requires low bandwidth, as it is rare that all the pixels produce a spike at the same time, has very low latency, less than \SI{1}{\milli\second}, and has a high dynamic range, higher than \SI{120}{\decibel}. On the other hand, a normal frame-based device produces a lot of redundant information since at each frame the state of all pixels is recorded, and have limited frame rates. Also, increasing the frame rate on these devices produces huge amount of highly redundant data.
 
-The digital retina output is encoded using Adress-Events Representation (AER). With this format, the only information transmitted is the $x$, $y$ position of the pixel (the address) and the time at which it spiked (the event). Two streams can be generated, one to encode positive pixel changes, and one to encode negative pixel changes. These will be called positive and negative polarities.  
+The digital retina output is encoded using Address-Events Representation (AER). With this format, the only information transmitted is the $x$, $y$ position of the pixel (the address) and the time at which it spiked (the event). Two streams can be generated, one to encode positive pixel changes, and one to encode negative pixel changes. These will be called positive and negative polarities.  
 
 
 \subsection{DVS Emulator}

@@ -1,2 +1,11 @@
 \thispagestyle{plain}
 \chapter*{Abstract}
+This report will present a biologically inspired spiking neural network which can be used to recognise and track simple shapes moving in a video stream in real time. The network presented runs in biological real time on a 4 chips SpiNNaker board, a massively-parallel multi-core computing system. 
+
+The first chapter will briefly introduce the functioning of biological neurons and the technologies used in order to simulate them: the aforementioned SpiNNaker system, Dynamic Vision Sensors, and a software emulator to emulate these with common frame-based devices.
+
+The second chapter will first introduce PyNN, an high level language based on Python used to implement spiking neural networks and generate SpiNNaker compatible executables, and then will describe in detail the architecture of network and the links between the network and neurobiology.
+
+In the third chapter the approach to code testing and a discussion on the problem on how to evaluate the network performance will be presented. Correctly evaluating this spiking neural network posed several problems and a proper way to evaluating it has not been found.
+
+The last chapter will focus on reflections on the planning and management of this project together with the challenges faced. 
