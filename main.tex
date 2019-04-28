@@ -14,6 +14,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{csquotes}
 
+\usepackage{esdiff}
+
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[a4paper, headheight=15pt]{geometry}
@@ -56,6 +58,8 @@
 
 \input{other/acknowledgements.tex}
 
+\pagenumbering{roman}
+
 \tableofcontents
 
 \listoffigures
@@ -63,6 +67,8 @@
 %\listoftables
 
 \chapter{Context}
+\pagenumbering{arabic}
+\setcounter{page}{1}
 \input{chapters/context.tex}
 \newpage
 
@@ -84,6 +90,8 @@
 
 %\setcitestyle{numbers}
 %\bibliography{bibliography}
+
+\pagenumbering{roman}
 
 \printbibliography[heading=bibintoc]
 

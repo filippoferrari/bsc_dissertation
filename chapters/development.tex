@@ -1,7 +1,7 @@
 This chapter will first introduce PyNN, an high level language based on Python used to implement spiking neural networks, and then will describe the network in detail.
 
 \section{PyNN}
-PyNN is a Python library which defines a high level interface to create spiking neural networks in a simulator-agnostic fashion \cite{Davison2008}. Once a network is defined using PyNN, it can then be run on several available simulator like NEST, NEURON and Brian and different neuromorphic platforms, like SpiNNaker. In order to run PyNN defined scripts on SpiNNaker, sPyNNaker has been developed by the SpiNNaker group at the University of Manchester \cite{Rhodes2018}.
+PyNN is a Python library which defines a high level interface to create spiking neural networks in a simulator-agnostic fashion \cite{Davison2008}. Once a network is defined using PyNN, it can then be run on several available simulator like NEST, NEURON and Brian and different neuromorphic platforms, like SpiNNaker. In order to run PyNN scripts on SpiNNaker, sPyNNaker has been developed by the SpiNNaker group at the University of Manchester \cite{Rhodes2018}.
 
 \begin{figure}[ht]
 \centering
@@ -10,7 +10,7 @@ PyNN is a Python library which defines a high level interface to create spiking 
 \label{fig:pynn_example}
 \end{figure}
 
-PyNN defines spiking neural networks in terms of neurons grouped together in \emph{populations}. These populations are linked together using \emph{projections}. These projections use connection algorithms which can be selected from built-in methods or be explicitly defined. Parameters of the populations, like spike trains or voltages, can be recorded during the simulation and can be accessed when it is finished for further analysis. A brief code example is provided in \cref{fig:pynn_example}. 
+PyNN defines spiking neural networks in terms of neurons grouped together in \emph{populations}. These populations are linked together using \emph{projections}. These projections use connection algorithms which can be selected from built-in methods or be explicitly defined. Parameters of the populations, like spike trains or voltages, can be recorded during the simulation and can be accessed when it is completed for further analysis. A brief code example is provided in \cref{fig:pynn_example}. 
 
 \section{Shape Tracking Spiking Neural Network}
 The network developed for this project draws its inspiration from the HMAX model proposed by Riesenhuber and Poggio \cite{Riesenhuber1999}. This model builds a hierarchy of increasingly complex representation in order to perform edge detection. An overview is shown in \cref{fig:hmax}. The \textsc{S1} and \textsc{C1} cells are part of the primary visual cortex V1.  
@@ -24,6 +24,8 @@ The network developed for this project draws its inspiration from the HMAX model
 
 This model carries out edge detection alternating two main types of cells: simple cells \textsc{S} performing Gaussian-like tuning operations and complex cells \textsc{C} performing max operations. The \textsc{S} cells are of particular interest: they act as simple edge detector for the 4 main orientation of a line (horizontal, vertical, right diagonal and left diagonal) and they can be combined in order to obtain a desired shape. The \textsc{C} cells, with their max operation provide translation invariance and they are not useful for tracking shapes moving in a video stream.
 
+Based on these ideas, the network used in this project had been designed. A diagram is provided in \cref{fig:network}. The network is composed of 8 neuron populations, each comprising  $32 \times 32 = 1024$ LIF neurons, divided in 3 ``layers'': the DVS outputs, the receptive fields and the shapes detectors. The input of the DVS has a spatial of resolution $32 \times 32$ pixels and it could be either a prerecorded video or a live recording using a webcam. Keeping all populations of size $32 \times 32$ allows the neurons to have a one-to-one mapping with the pixels in the input video stream. 
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.75\textwidth]{images/development/network.png}
@@ -31,7 +33,6 @@ This model carries out edge detection alternating two main types of cells: simpl
 \label{fig:network}
 \end{figure}
 
-Based on these ideas, the network used in this project had been designed. A diagram is provided in \cref{fig:network}. The network is composed of 8 neuron populations, each comprising  $32 \times 32 = 1024$ LIF neurons, divided in 3 ``layers'': the DVS outputs, the receptive fields and the shapes detectors. The input of the DVS has a spatial of resolution $32 \times 32$ pixels and it could be either a prerecorded video or a live recording using a webcam. This allows the neurons to have a one-to-one mapping with the pixels in the input video. 
 
 \subsection{DVS Emulator Output}
 The DVS emulator produces two separate spikes streams, one for positive changes in pixel brightness (the green ones in \cref{fig:network}) and one for negative ones (the red ones). These spikes are injected into the network using two \texttt{SpikeSourceArray}, a PyNN object which emits spikes at specific times and can be treated in a similr way to a normal neuron population. The input of a \texttt{SpikeSourceArray} is a list of times for each neuron in the population. 
@@ -49,7 +50,7 @@ The DVS emulator produces two separate spikes streams, one for positive changes 
 In \cref{fig:square_lr}, a \SI{5}{s} video of a white square moving from left to right is shown. This video has been synthetically generated using a Python script. The DVS emits spikes only on the horizontal edges and on the first pixel of the top and bottom edges. This is due to the fact that on the top edge (and the bottom one), the pixel brightness does not change apart from the rightmost and leftmost pixels.
 
 \subsection{Receptive Fields}
-In the context of the visual system, a receptive field is a region of the retina associated with a neuron which spikes when the region is stimulated by light. The neurons in this layer are the \textsc{S1} cells discussed previously. These forms 4 populations of cells, one for each of the 4 bar orientations (horizontal, veritcal and the two diagonals). 
+In the context of the visual system, a receptive field is a region of the retina associated with a neuron which spikes when the region is stimulated by light. The neurons in this layer are the \textsc{S1} cells discussed previously. These forms 4 populations of cells, one for each of the 4 bar orientations (horizontal, vertical and the two diagonals). 
 
 The receptive fields are modelled upon the Octopus retina, as described by Folowosele in \cite{Folowosele2011}. An illustration is provided in \cref{fig:receptive_fields}.
 
@@ -60,7 +61,7 @@ The receptive fields are modelled upon the Octopus retina, as described by Folow
 \label{fig:receptive_fields}
 \end{figure}
 
-The receptive fields are constructed using connections between the positive and negative polarities \texttt{SpikeSourceArray}s, the DVS output layer in \cref{fig:network}, and the 4 populations of \textsc{S1} cells. Each neuron in a \textsc{S1} cells population has 3 excitatory connections to the positive polarity \texttt{SpikeSourceArray} and 10 inhibitory connections to the negative polarity \texttt{SpikeSourceArray} accordingly to the patterns shown in the figure. For neurons close to the edges, only the connections falling inside the $32 \times 32$ frame are set.
+The receptive fields are constructed using connections between the positive and negative polarities \texttt{SpikeSourceArray}s, the DVS output layer in \cref{fig:network}, and the 4 populations of \textsc{S1} cells. Each neuron in a \textsc{S1} cells population has 3 excitatory connections to the positive polarity \texttt{SpikeSourceArray} and 10 inhibitory connections to the negative polarity \texttt{SpikeSourceArray} accordingly to the patterns shown in \cref{fig:receptive_fields}. For neurons close to the edges, only the connections falling inside the $32 \times 32$ frame are set.
 
 An example of the behaviour of these populations of cells is shown in \cref{fig:receptive_fields_square_lr}.
 
@@ -80,7 +81,7 @@ The ``square detector'' combines horizontal and vertical edges in order to detec
 
 The connections between the \textsc{S1} cells populations and the shapes detectors are all excitatory. In this way, the neuron which spikes in the shape detector population is at the centre of the location of the shape in the visual plane. 
 
-This setup has one obvious disadvantage, it does not account for scale variance. In order to account for it, connections to the surrounding cells are added. An example of this, for the vertical edges of the square detector, can be seen in \cref{fig:shapes_connections}. The other edges behave in a similar way. With this technique, shapes of size 3, 5, 7 and 9 can be detected. 
+This setup has one obvious disadvantage, it does not account for scale variance. In order to account for it, connections to the surrounding cells are added. An example of this, for the vertical edges of the square detector, can be seen in \cref{fig:shapes_connections}. The other edges behave in a similar way. With this technique, shapes of size 3, 5, 7 and 9 are accounted for. 
 
 \begin{figure}[ht]
 \centering
@@ -89,15 +90,15 @@ This setup has one obvious disadvantage, it does not account for scale variance.
 \label{fig:shapes_connections}
 \end{figure}
 
-Due to the increased number of connections, false positives can occur. In order to reduce them a biological mechanism called lateral inhibition is used. It is represented by the purple arrows in \cref{fig:network}. With lateral inhibition, an excited neuron will send a inhibitory signal to all the surrounding neuron. Thanks to it, the first neuron that spikes in the shape population, stops the other from spiking.
+Due to the increased number of connections, false positives can occur. In order to reduce them, a biological mechanism called lateral inhibition is used. It is represented by the purple arrows in \cref{fig:network}. With lateral inhibition, an excited neuron will send a inhibitory signal to all the surrounding neuron. Thanks to this mechanism, the first neuron that spikes in the shape population, stops the other from spiking.
 
 \subsection{Shape Recognition}
-At this point, the spike trains from the shape detector populations can be used to locate and track the shape across time. An example of it is shown in \cref{fig:shape_detectors}. It can be seen that even with lateral inhibition, multiple neurons spike at the same time. In that case the marker is selected taking the median of the neuron ids. 
+At this point, the spike trains from the shape detector populations can be used to locate and track the shape across time. An example of it is shown in \cref{fig:shape_detectors}. It can be seen that, even with lateral inhibition, multiple neurons spike at the same time. In that case, the marker is arbitrarily selected taking the median of the neuron ids. 
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{images/development/shape_detectors.png}
-\caption[Shapes Detector with Square and Diamond]{On the left the spike trains for the square (top) and diamond (bottom) populations. On the right a screenshot of the video used as an input at the time highlighted in the spike train, with a yellow marker which tracks the position of the diamond and a red marker for the square.}
+\caption[Shapes Detector with Square and Diamond]{On the left the spike trains for the square (top) and diamond (bottom) populations. On the right a screenshot of the video used as an input at the time highlighted in the spike train, with a yellow marker which tracks the position of the diamond and a red marker for the square. It can be seen how 3 neurons spike in the diamond detector and the selected one (the median) is the correct one. On the other hand, in the square population only 2 neurons spike and the wrong one is selected.}
 \label{fig:shape_detectors}
 \end{figure}
 
