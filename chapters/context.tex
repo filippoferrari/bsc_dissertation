@@ -1,12 +1,12 @@
 This project investigates whether biologically inspired spiking neural network can be used to recognise and track simple shapes moving in a video stream in real time. The network developed for this project currently recognised squares and diamonds in synthetic videos and it runs on a SpiNNaker board, a neuromorphic supercomputer. 
 
-In this chapter a brief introduction on the functioning of biological neurons and the technologies used in order to simulate them will be presented. A quick discussion on previous work in the area will also be provided. 
+In this chapter, a brief introduction on the functioning of biological neurons and the technologies used in order to simulate them will be presented. A quick overview on previous work in the area will also be provided. 
 
 All of the following tools and technologies had been selected in order to develop a project with as many similarities as possible to the functioning of a biological brain. 
 
 
 \section{Neuron}
-Neurons are highly specialised cells found in the nervous system with the purpose of generating and transmitting electrical signals to other cells. Many different kinds of neurons exist \cite{Llinas:2008}, each with different morphology, but a typical neuron can be divided in the three parts shown in \cref{fig:neuron_morphology} \textbf{A}:
+Neurons are highly specialised cells found in the nervous system, with the purpose of generating and transmitting electrical signals to other cells. Many different kinds of neurons exist \cite{Llinas:2008}, each with different morphology, but a typical neuron can be divided in the three parts shown in \cref{fig:neuron_morphology} \textbf{A}:
 \begin{itemize}
     \item Soma: a usually compact area which represents the body of the neuron and which contains the cell nucleus.
     \item Dendrites: tree-like extensions of the soma membrane which acts as the ``input'' pole to the neuron.
@@ -30,13 +30,13 @@ Several mathematical models are available in order to simulate neurons, the one 
 where $\tau_m$ is the membrane time constant, $u(t)$ represents the membrane potential at time $t$, $R$ is the membrane resistance and $I$ is the current. 
 
 \subsection{Spiking Neural Networks}
-Spiking neural networks are a class of artificial neural networks which are closer to biology than the one commonly used nowadays for machine learning tasks. In spiking neural networks the concept of time is introduced and the communication between neurons relies exclusively on discrete spikes, the ones described in the previous section, instead of continuous values. 
+Spiking neural networks are a class of artificial neural networks which are closer to biology than the one commonly used nowadays for machine learning tasks. In spiking neural networks, the concept of time is introduced and the communication between neurons relies exclusively on discrete spikes, the ones described in the previous section, rather than of continuous values. 
 
-The field of spiking neural networks is still in its infancy and lacks an effective supervised method for training, the equivalent of backpropagation for common artificial neural network. The main reason for this, is that there is no evidence for backpropagation to be a biologically plausible mechanism. Therefore, the lack of understanding of how the brain works, limits the development of new biologically plausible algorithms for training spiking neural networks. 
+The field of spiking neural networks is still in its infancy and lacks an effective supervised method for training, the equivalent of backpropagation for common artificial neural network. This is due to the fact that there is no evidence for backpropagation to be a biologically plausible mechanism. Therefore, the lack of understanding of how the brain works limits the development of new biologically plausible algorithms for training spiking neural networks. 
 
 
 \section{SpiNNaker}
-In order to handle the obvious complexity of neural simulations, two approaches are possible. The first one is to use supercomputer built for general purpose tasks like in the case of the Blue Brain project which uses IBM's Blue Gene supercomputers \cite{Markram2006}. The second approach is to employ neuromorphic systems. These systems are designed around the idea that small computing elements (the ``neurons'') perform computation in a highly distributed manner in ways that mimic biological brains \cite{Furber2016}. Several of these systems have been developed recently, for example IBM TrueNorth, Stanford Neurogrid and University of Manchester SpiNNaker, which will be the system used for this project.
+There are two possible approaches to handle the obvious complexity of neural simulations. The first one uses a supercomputer built for general purpose tasks, like in the case of the Blue Brain project which uses IBM's Blue Gene supercomputers \cite{Markram2006}. The second approach employs neuromorphic systems. These systems are designed around the idea that small computing elements (the ``neurons'') perform computations in a highly distributed manner in ways that mimic biological brains \cite{Furber2016}. Several of these systems have been developed recently, for example IBM TrueNorth, Stanford Neurogrid and the University of Manchester SpiNNaker, which will be the system used for this project.
 
 SpiNNaker is a massively-parallel multi-core computing system designed for large scale brain simulations running in biological real time. The system had been designed focusing on scalability, in order to model the very large number of components in a biological brain, and energy efficiency.
 
@@ -74,13 +74,13 @@ By recording only individual pixels changes, a digital retina models key propert
 \label{fig:dvs}
 \end{figure}
 
-Thanks to these properties, a digital retina requires low bandwidth, as it is rare that all the pixels produce a spike at the same time, has very low latency, less than \SI{1}{\milli\second}, and has a high dynamic range, higher than \SI{120}{\decibel}. On the other hand, a normal frame-based device produces a lot of redundant information since at each frame the state of all pixels is recorded, and have limited frame rates. Also, increasing the frame rate on these devices produces huge amount of highly redundant data.
+Thanks to these properties, a digital retina requires low bandwidth, as it is rare that all the pixels produce a spike at the same time, has very low latency, less than \SI{1}{\milli\second}, and has a high dynamic range, higher than \SI{120}{\decibel}. On the other hand, a normal frame-based device produces a lot of redundant information since at each frame the state of all pixels is recorded, and have limited frame rates. Also, increasing the frame rate on these devices produces huge amounts of highly redundant data.
 
 The digital retina output is encoded using Address-Events Representation (AER). With this format, the only information transmitted is the $x$, $y$ position of the pixel (the address) and the time at which it spiked (the event). Two streams can be generated, one to encode positive pixel changes, and one to encode negative pixel changes. These will be called positive and negative polarities.  
 
 
 \subsection{DVS Emulator}
-Due to the high cost of DVS cameras, a software emulator has been developed in the School of Computer Science written in Python \cite{Garcia2017}.
+Due to the high cost of DVS cameras, a software emulator, written in Python, has been developed in the School of Computer Science \cite{Garcia2017}.
 
 \begin{figure}[ht]
 \centering
@@ -92,7 +92,7 @@ Due to the high cost of DVS cameras, a software emulator has been developed in t
 \label{fig:dvs_emulator}
 \end{figure}
 
-The DVS emulator converts a frames coming from a conventional camera into a AER spike stream which can then be sent to SpiNNaker, as seen in \cref{fig:dvs_comparison}.  
+The DVS emulator converts frames coming from a conventional camera into a AER spike stream which can then be sent to SpiNNaker, as seen in \cref{fig:dvs_comparison}.  
 \Cref{fig:dvs_diagram} shows the components of the DVS emulator. The emulator receives a frame, \textsf{IMG} in the diagram, and the differences from the previous frame are computed. The difference image goes through an adaptive threshold that adapts the per-pixel threshold based on the previous activity of the pixels: the threshold is increased if the pixels spiked previously, otherwise is reduced. The remaining pixels are considered raw spikes, $\text{\textsf{SPKS}}_\text{\textsf{R}}$ and need to be post-processed and encoded. For this project, spikes had been time encoded: the time between frames is divided into bins, each bin representing a brightness change, and a spike is sent at the time in which the pixel brightness is binned. The encoded spikes $\text{\textsf{SPKS}}_\text{\textsf{E}}$ are send to SpiNNaker and are also used in order to update the adaptive threshold and a history decay mechanism in order to reduce errors in transmission. 
 
 The use of a software emulator provides a lot of flexibility: the input can either be a prerecorded video or a live recording coming from a webcam, and its behaviour can be easily changed and the results saved for reproducibility. 

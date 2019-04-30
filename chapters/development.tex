@@ -1,7 +1,7 @@
 This chapter will first introduce PyNN, an high level language based on Python used to implement spiking neural networks, and then will describe the network in detail.
 
 \section{PyNN}
-PyNN is a Python library which defines a high level interface to create spiking neural networks in a simulator-agnostic fashion \cite{Davison2008}. Once a network is defined using PyNN, it can then be run on several available simulator like NEST, NEURON and Brian and different neuromorphic platforms, like SpiNNaker. In order to run PyNN scripts on SpiNNaker, sPyNNaker has been developed by the SpiNNaker group at the University of Manchester \cite{Rhodes2018}.
+PyNN is a Python library which defines a high level interface to create spiking neural networks in a simulator-agnostic fashion \cite{Davison2008}. Once a network is defined using PyNN, it can then be run on several available simulators, like NEST, NEURON and Brian, and different neuromorphic platforms, like SpiNNaker. In order to run PyNN scripts on SpiNNaker, sPyNNaker has been developed by the SpiNNaker group at the University of Manchester \cite{Rhodes2018}.
 
 \begin{figure}[ht]
 \centering
@@ -47,10 +47,10 @@ The DVS emulator produces two separate spikes streams, one for positive changes 
 \label{fig:square_lr}
 \end{figure}
 
-In \cref{fig:square_lr}, a \SI{5}{s} video of a white square moving from left to right is shown. This video has been synthetically generated using a Python script. The DVS emits spikes only on the horizontal edges and on the first pixel of the top and bottom edges. This is due to the fact that on the top edge (and the bottom one), the pixel brightness does not change apart from the rightmost and leftmost pixels.
+In \cref{fig:square_lr}, a \SI{5}{s} video of a white square moving from left to right is shown. This video has been synthetically generated using a Python script. The DVS emits spikes only on the horizontal edges and on the first pixel of the top and bottom edges. This is due to the fact that on the top edge (and the bottom one), the pixel brightness does not change, apart from the rightmost and leftmost pixels.
 
 \subsection{Receptive Fields}
-In the context of the visual system, a receptive field is a region of the retina associated with a neuron which spikes when the region is stimulated by light. The neurons in this layer are the \textsc{S1} cells discussed previously. These forms 4 populations of cells, one for each of the 4 bar orientations (horizontal, vertical and the two diagonals). 
+In the context of the visual system, a receptive field is a region of the retina associated with a neuron which spikes when the region is stimulated by light. The neurons in this layer are the \textsc{S1} cells discussed previously. These form 4 populations of cells, one for each of the 4 bar orientations (horizontal, vertical and the two diagonals). 
 
 The receptive fields are modelled upon the Octopus retina, as described by Folowosele in \cite{Folowosele2011}. An illustration is provided in \cref{fig:receptive_fields}.
 
@@ -73,24 +73,24 @@ An example of the behaviour of these populations of cells is shown in \cref{fig:
 \end{figure}
 
 \subsection{Shapes Detector}
-Once the receptive fields had been set up, they can be combined in various way in order to create populations of cells able to detect shapes.
+Once the receptive fields had been set up, they can be combined in various ways, in order to create populations of cells able to detect shapes.
 
-The network in its current form recognises only two shapes: a square and a diamond. For each shape a population of cells had been created.
+The network in its current form recognises only two shapes: a square and a diamond. For each shape, a population of cells had been created.
 
 The ``square detector'' combines horizontal and vertical edges in order to detect squares of size $5 \times 5$. On the other hand, the ``diamond detector'' combines the left and right diagonal edges to detect diamonds of size $5 \times 5$. 
 
 The connections between the \textsc{S1} cells populations and the shapes detectors are all excitatory. In this way, the neuron which spikes in the shape detector population is at the centre of the location of the shape in the visual plane. 
 
-This setup has one obvious disadvantage, it does not account for scale variance. In order to account for it, connections to the surrounding cells are added. An example of this, for the vertical edges of the square detector, can be seen in \cref{fig:shapes_connections}. The other edges behave in a similar way. With this technique, shapes of size 3, 5, 7 and 9 are accounted for. 
+This setup has one obvious disadvantage: it does not account for scale variance. In order to account for it, connections to the surrounding cells are added. An example of this, for the vertical edges of the square detector, can be seen in \cref{fig:shapes_connections}. The other edges behave in a similar way. With this technique, shapes of size 3, 5, 7 and 9 are accounted for. 
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.75\textwidth]{images/development/shapes_connections.png}
-\caption[Vertical Edges of the Square Detector]{For this example, a $12 \times 12$ input area is used, where the numbers represents the neuron ids. Neuron 65 in the square population has connections to all the neurons highlighted in the respective edge population. The red connections have the strongest connection weight and the yellow one the weakest.}
+\caption[Vertical Edges of the Square Detector]{For this example, a $12 \times 12$ input area is used, where the numbers represents the neuron ids. Neuron 65 in the square population has connections to all the neurons highlighted in the respective edge population, in this case the vertical one. The red connections have the strongest connection weight and the yellow one the weakest.}
 \label{fig:shapes_connections}
 \end{figure}
 
-Due to the increased number of connections, false positives can occur. In order to reduce them, a biological mechanism called lateral inhibition is used. It is represented by the purple arrows in \cref{fig:network}. With lateral inhibition, an excited neuron will send a inhibitory signal to all the surrounding neuron. Thanks to this mechanism, the first neuron that spikes in the shape population, stops the other from spiking.
+Due to the increased number of connections, false positives can occur. In order to reduce them, a biological mechanism called lateral inhibition is used. It is represented by the purple arrows in \cref{fig:network}. With lateral inhibition, an excited neuron will send a inhibitory signal to all the surrounding neuron. Thanks to this mechanism, the first neuron that spikes in the shape population stops the others from spiking.
 
 \subsection{Shape Recognition}
 At this point, the spike trains from the shape detector populations can be used to locate and track the shape across time. An example of it is shown in \cref{fig:shape_detectors}. It can be seen that, even with lateral inhibition, multiple neurons spike at the same time. In that case, the marker is arbitrarily selected taking the median of the neuron ids. 

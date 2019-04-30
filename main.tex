@@ -70,29 +70,31 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 \input{chapters/context.tex}
+\label{sec:context}
 \newpage
 
 \chapter{Development}
+\label{sec:development}
 \input{chapters/development.tex}
 \newpage
 
 \chapter{Evaluation}
+\label{sec:evaluation}
 \input{chapters/evaluation.tex}
 \newpage
 
 \chapter{Conclusion}
+\label{sec:conclusion}
 \input{chapters/conclusion}
 \newpage
-
-% \appendix
-% \chapter{Appendix Title}
-% \input{chapters/appendix}
-
-%\setcitestyle{numbers}
-%\bibliography{bibliography}
 
 \pagenumbering{roman}
 
 \printbibliography[heading=bibintoc]
+
+\appendix
+\chapter{Evaluation Results}
+\label{app:evaluation}
+\input{chapters/appendix_evaluation.tex}
 
 \end{document}

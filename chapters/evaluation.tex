@@ -1,27 +1,37 @@
-In this chapter the approach to code testing and a discussion on the problem on how to evaluate the network performance will be presented.
+In this chapter, the approach to code testing and a discussion on the problem on how to evaluate the network performance will be presented.
 
 
 \section{Code testing}
 The codebase can be divided in three major components: the sPyNNaker code, the DVS emulator and the network written for the project. 
 
-The sPyNNaker code is already heavily tested. The DVS emulator did not included any unit tests but none were added as part of this project due to time constraints. 
+The sPyNNaker code is already heavily tested by its developers in the SpiNNaker group. The DVS emulator did not included any unit tests but none were added as part of this project due to time constraints. An extensive review of the code and hours of experiments convinced the author of this report that the emulator performed as expected.
 
-Unit tests had been included in the code written for this project. In particular, all the code that defines the connections between the DVS output and the receptive fields and between the receptive fields and the shapes detectors has unit tests. 
+Unit tests had been included in the code specifically written for this project. In particular, all the code that defines the connections between the DVS output and the receptive fields and between the receptive fields and the shapes detectors has unit tests. 
 
-A continuous integration test had been set up using the free tier of \href{http://travis-ci.com}{travis-ci.com}, a continuous integration tool, in order to run all the tests at every git push. 
+A continuous integration server had been set up using the free tier of \href{http://travis-ci.com}{travis-ci.com}, a continuous integration tools provider, in order to run all the unit tests at every git push. 
 
 
 \section{Evaluation of the Network}
 Evaluating the performances of this network is quite difficult. In particular, there is no labelled dataset on which the network has been trained. 
-The videos used had been generated using a Python script and they cover quite simple scenarios. 
+The videos used had been generated using a Python script and they cover quite simple and optimal scenarios. 
+
+In order to make the experiments reproducible, the network runs using configuration files stored as YAML. Since these files are plaintext, they can be versioned in order to keep track of the changes. An example can be seen in \cref{fig:config_file}. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{images/evaluation/config_file.png}
+\caption[Config File for the Network]{An example config file is shown. Settings for the network can be changed and tracked across different experiments.}
+\label{fig:config_file}
+\end{figure}
 
 The network performs very well with both squares and diamonds from synthetic videos. The problems with these videos is when the square is moving parallel to the edges of the frame (or the diamond diagonally) as these edges do not generate any spikes, like in the example shown in \cref{fig:square_lr}. 
 
 On synthetic videos the networks is able to recognise quite well shapes of size $5 \times 5$ and $7 \times 7$, as long as their movements on the screen generate enough spikes, for example in the case of a square moving from the top left corner to the bottom right one. 
 
-Another problem is when shapes do not move, hence they do not generate spikes. The eyes do not look at a scene staying still, instead, the eyes move around and these movements are called saccades. A way of simulating saccades for handling still scenes would definitely help to solve this problem. 
-
+Another problem is when shapes do not move, hence they do not generate spikes. The human eyes do not look at a scene staying still, instead, they move around and these movements are called saccades. A way of simulating saccades for handling still scenes would definitely help to solve this problem. 
 Using a webcam as the network input does not produce any meaningful results, as it can be seen in \cref{fig:webcam_results}. The receptive fields, \cref{fig:receptive_fields_webcam_input}, produce spikes in the areas where the shape is moving, but the shape detectors, \cref{fig:shape_webcam_input}, produce too many spikes so that a clear location of where the shape is cannot be obtained. 
+
+Evaluation results are presented in \Cref{app:evaluation}.
 
 \begin{figure}[ht]
 \centering
@@ -35,7 +45,7 @@ Using a webcam as the network input does not produce any meaningful results, as 
 \begin{subfigure}{\textwidth}
 \centering
 \includegraphics[width=0.75\textwidth]{images/evaluation/receptive_fields_webcam_input.png}
-\caption{Receptive fields.}
+\caption{Edge detectors.}
 \label{fig:receptive_fields_webcam_input}
 \end{subfigure}
 
